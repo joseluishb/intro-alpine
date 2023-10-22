@@ -24,7 +24,11 @@
       return {
         name: '',
         nameWatcher: '',
-
+        init() {
+          this.$watch('name', value => {
+            this.nameWatcher = `Watcher response ${value}`;
+          });
+        }
       }
     }
   </script>
