@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hola Mundo - Alpine.js</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+  <div class="flex justify-center bg-gray-100">
+    <div x-data="{ helloWorld: 'Hola mundo Moody' }" class="m-5">
+      <p x-text="helloWorld"></p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de tareas - Alpine.js</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+  <div class="flex justify-center bg-gray-100">
+    <div x-data="setup()" class="m-5">
+      <p class="text-center text-5xl">Lista de tareas</p>
+      <input
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        x-model="todo" @keyup.enter="addTodo()" />
+      <!-- x-on:keyup.enter="addTodo()" -->
+      <div class="text-center m-2">
+        <button @click="addTodo()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+          Añadir tarea
+        </button>
+      </div>
+
+      <template x-if="!todos.length">
+        <div class="text-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <strong class="font-bold">No hay tareas!</strong>
+        </div>
+      </template>
+      
+      <template x-if="todos.length">
+        <ul class="list-inside text-white p-5 bg-gray-600 px-4 py-4">
+          <template x-for="t in todos" :key="t">
+            <li class="py-2">
+              <span x-text="t"></span> <span @click="removeTodo(t)">X</span>
+            </li>
+          </template>
+        </ul>
+      </template>
+
+
+    </div>
+  </div>
+  <script>
+    function setup() {
+      return {
+        todo: '',
+        todos: [],
+        addTodo() {
+          this.todos.push(this.todo);
+          this.todo = '';
+        },
+        removeTodo(todo) {
+          this.todos = this.todos.filter(t => t !== todo);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
