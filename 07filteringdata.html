@@ -14,7 +14,20 @@
 
     <input x-model="search" placeholder="Buscador de héroes"
       class="block w-full bg-gray-200 focus:outline-none focus:bg-white focus:shadow text-gray-700 font-bold rounded-lg px-4 py-3" />
-  </div>
+  
+      <div class="mt-4 grid lg:grid-cols-4 gap-4">
+        <template x-for="hero in filteredHeroes" :key="hero.id">
+          <div
+            class="flex items-center shadow hover:bg-blue-200 hover:shadow-lg hover:rounded transition duration-100 ease-in-out p-3 transform hover:scale-105">
+            <img class="w-10 h-10 rounded-full mr-5" :src="hero.images.xs" />
+            <div class="text-sm">
+              <p class="text-gray-800" x-text="hero.name"></p>
+              <p class="text-gray-500" x-text="`Power: ${hero.powerstats.power}`"></p>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
   <script>
     const heroesData = [
       {
@@ -1441,6 +1454,15 @@
       return {
         search: '',
         heroes: heroesData,
+        get filteredHeroes() {
+          if(this.search  === '') {
+            return this.heroes;
+          }
+
+          return this.heroes.filter(hero => {
+            return hero.name.toLowerCase().includes(this.search.toLowerCase())
+          });
+        }
       }
     }
   </script>
